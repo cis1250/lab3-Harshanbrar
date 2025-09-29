@@ -46,7 +46,7 @@ for i in range(len(list1)):
 # Count frequencies but only print each word once
 for i in range(len(list1)):
     word = list1[i]
-    if word not in list1[:i]:  # only process the first time we see this word
+    if word not in list1[:i]:  # only process the first time it sees this word
         amnt = 0
         for r in range(len(list1)):
             if list1[r] == word:
