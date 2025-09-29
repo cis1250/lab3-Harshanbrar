@@ -4,39 +4,40 @@
 # Prompt the user for the number of terms.
 # Validate that the input is a positive integer.
 # Use a for loop to print the Fibonacci sequence up to that many terms.
-
-while True:  
+while True:
     # Ask the user how many Fibonacci terms they want
-    print("How many sequences would you like?")
+    while True:
+        print("How many sequences would you like?")
+        sequences_input = input()  # user types something (comes in as a string)
 
-    try:
-        # Convert input to an integer (input() gives a string by default)
-        sequences = int(input())
-        print(f'\nYou chose {sequences} sequences.')
-
-        # Case 1: User enters 0 → just print 0
-        if sequences == 0:
-            print(0)
-
-        # Case 2: User enters a positive number
-        elif sequences > 0:
-            a, b = 0, 1  # starting values of Fibonacci sequence
-            print("Fibonacci sequence:")
-            print(a)      # always print first term
-            if sequences > 1:
-                print(b)  # print second term if needed
-
-            # Loop to generate remaining terms
-            for i in range(2, sequences):
-                next_term = a + b  # add previous two numbers
-                print(next_term)
-                a = b              # shift values forward
-                b = next_term
-
-        # Case 3: User enters a negative number
+    # Check if the input is a number (only digits, no letters or symbols)
+        if sequences_input.isdigit():
+            sequences = int(sequences_input)  # convert the string to an integer
+            break
         else:
-            print("\nPlease input a positive number.")
+            print("Please enter a positive whole number.")  # tell user it was invalid
 
-    except ValueError:
-        # Handles case where user enters something not a number (e.g., "hello")
-        print("\nInvalid input. Please enter a positive integer.")
+    # Confirm what the user chose
+    print(f"\nYou chose {sequences} sequences.")
+
+    # Case 1: User enters 0 → just print 0
+    if sequences == 0:
+        print(0)
+
+    # Case 2: User enters a positive number
+    elif sequences > 0:
+        a, b = 0, 1  # starting values of Fibonacci sequence
+        print("Fibonacci sequence:")
+        print(a)      # always print first term (0)
+
+        if sequences > 1:
+            print(b)  # print the second term (1) if needed
+
+        # Loop to generate the rest of the sequence
+        for i in range(2, sequences):  # start at 2 because 0 and 1 are already printed
+            next_term = a + b          # add the previous two numbers
+            print(next_term)           # show the new term
+            a = b                      # move b into a
+            b = next_term              # move new term into b
+
+    # Negative numbers are not possible here because .isdigit() blocks them
