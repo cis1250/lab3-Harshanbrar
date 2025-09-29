@@ -38,9 +38,11 @@ while (is_sentence(user_sentence) == False):
     user_input = input("Enter a sentence: ")
 
 
-# Split into words, lowercase them, and strip punctuation
-list1 = [re.sub(r'[^\w]', '', word).lower() for word in user_sentence.split()]
-
+# Split into words
+list1 = user_sentence.split()
+for i in range(len(list1)):
+    list1[i] = re.sub(r'[^\w]', '', list1[i])  # remove punctuation
+    list1[i] = list1[i].lower()                # make lowercase
 # Count frequencies but only print each word once
 for i in range(len(list1)):
     word = list1[i]
