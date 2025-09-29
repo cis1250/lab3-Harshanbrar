@@ -31,7 +31,22 @@ def is_sentence(text):
 
 user_sentence = input("Enter a sentence: ")
 
+
+
 while (is_sentence(user_sentence) == False):
     print("This does not meet the criteria for a sentence.")
     user_input = input("Enter a sentence: ")
-    
+
+
+# Split into words, lowercase them, and strip punctuation
+list1 = [re.sub(r'[^\w]', '', word).lower() for word in user_sentence.split()]
+
+# Count frequencies but only print each word once
+for i in range(len(list1)):
+    word = list1[i]
+    if word not in list1[:i]:  # only process the first time we see this word
+        amnt = 0
+        for r in range(len(list1)):
+            if list1[r] == word:
+                amnt += 1
+        print(f'{word}: {amnt}')
