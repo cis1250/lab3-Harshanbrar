@@ -38,31 +38,26 @@ while (is_sentence(user_sentence) == False):
     user_input = input("Enter a sentence: ")
 
 
-# Step 1: Split the sentence into words
+# Step 1: Split into words
 list1 = user_sentence.split()
 
-# Step 2: Clean each word
+# Step 2: Clean each word (remove punctuation + lowercase)
 for i in range(len(list1)):
     list1[i] = re.sub(r'[^\w]', '', list1[i])  # remove punctuation
     list1[i] = list1[i].lower()                # make lowercase
 
-# Step 3: Create two empty lists
-words = []     # this will hold unique words
-freqs = []     # this will hold how many times each word appears
+# Step 3: Create two lists
+words = []   # unique words
+freqs = []   # word counts
 
-# Step 4: Count the words
+# Step 4: Count words using for...else
 for word in list1:
-    found = False                # flag to check if word already in words list
-    
-    # Look through words list to see if word exists
     for j in range(len(words)):
-        if words[j] == word:     # word already in the list
-            freqs[j] += 1        # increase the count
-            found = True
-            break
-    
-    # If word was not found, add it to the list and start count at 1
-    if not found:
+        if words[j] == word:
+            freqs[j] += 1     # increase count
+            break             # stop the loop if found
+    else:
+        # This runs ONLY if the loop didn't break
         words.append(word)
         freqs.append(1)
 
