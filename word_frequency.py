@@ -38,17 +38,34 @@ while (is_sentence(user_sentence) == False):
     user_input = input("Enter a sentence: ")
 
 
-# Split into words
+# Step 1: Split the sentence into words
 list1 = user_sentence.split()
+
+# Step 2: Clean each word
 for i in range(len(list1)):
     list1[i] = re.sub(r'[^\w]', '', list1[i])  # remove punctuation
     list1[i] = list1[i].lower()                # make lowercase
-# Count frequencies but only print each word once
-for i in range(len(list1)):
-    word = list1[i]
-    if word not in list1[:i]:  # only process the first time it sees this word
-        amnt = 0
-        for r in range(len(list1)):
-            if list1[r] == word:
-                amnt += 1
-        print(f'{word}: {amnt}')
+
+# Step 3: Create two empty lists
+words = []     # this will hold unique words
+freqs = []     # this will hold how many times each word appears
+
+# Step 4: Count the words
+for word in list1:
+    found = False                # flag to check if word already in words list
+    
+    # Look through words list to see if word exists
+    for j in range(len(words)):
+        if words[j] == word:     # word already in the list
+            freqs[j] += 1        # increase the count
+            found = True
+            break
+    
+    # If word was not found, add it to the list and start count at 1
+    if not found:
+        words.append(word)
+        freqs.append(1)
+
+# Step 5: Print results
+for i in range(len(words)):
+    print(words[i], ":", freqs[i])
